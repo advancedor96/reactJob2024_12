@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import RingLoader from "react-spinners/RingLoader";
 const AddJob = () => {
   const [title, setTitle] = useState('')
   const [type, setType] = useState('Full-Time')
@@ -13,8 +14,9 @@ const AddJob = () => {
   const [loading, setLoading] = useState(false);
 
   const submitForm = async (e)=>{
-    setLoading(true)
     e.preventDefault();
+    setLoading(true)
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     const newJob = {
       title, type, location, description, salary,
       company: {
@@ -38,6 +40,7 @@ const AddJob = () => {
   }
   return (
     <section className="bg-indigo-50">
+      <RingLoader loading={loading} cssOverride={{ position: 'absolute', top: '50%', left: '50%' }} size={150}/>
       <div className="container m-auto max-w-2xl py-24">
         <div
           className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0"
